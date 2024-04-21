@@ -19,16 +19,16 @@ typedef struct nodeStruct {
 node_t *llInit(char info);
 void llAppend(char info, node_t *ll);
 node_t *llFinal(node_t *ll);
+void llReader(node_t *ll);
 
 
 int main(int argc, char *argv[])
 {
     node_t *ll = llInit('c');
 
-    printf("%c\n", llFinal(ll)->data);
     llAppend('a', ll);
     llAppend('m', ll);
-    printf("%c\n", llFinal(ll)->data);
+    llReader(ll);
     
     free(ll);
     return(0);
@@ -70,4 +70,10 @@ node_t *llFinal(node_t *ll)
     node_t *nextNode = ll->next;
     while(nextNode != ll) nextNode = nextNode->next;
     return(nextNode);
+}
+
+/* Prints out a linked list. */
+void llReader(node_t *ll)
+{
+    for(node_t *nextNode = ll; nextNode->next != ll; nextNode = nextNode->next) printf("%c\n", nextNode->data);
 }
