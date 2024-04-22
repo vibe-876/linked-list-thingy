@@ -19,6 +19,7 @@ typedef struct nodeStruct {
 node_t *llInit(char info);
 void llAppend(char info, node_t *ll);
 node_t *llFinal(node_t *ll);
+void llRem(node_t *ll, int n);
 void llReader(node_t *ll);
 void llBReader(node_t *ll);
 void llFree(node_t *ll);
@@ -30,7 +31,10 @@ int main(int argc, char *argv[])
     llAppend('a', ll);
     llAppend('m', ll);
 
-    llBReader(ll);
+    llReader(ll);
+    llRem(ll, 2);
+    printf("\n");
+    llReader(ll);
     
     llFree(ll);
     return(0);
@@ -95,6 +99,17 @@ void llBReader(node_t *ll)
 	printf("%c\n", node->data);
 	node = node->prev;
     } printf("%c\n", node->data);
+}
+
+/* Removes the nth element from the ll. */
+void llRem(node_t *ll, int n)
+{
+    node_t *node = ll;
+    for(int i = 0; i < n; i++) node = node->next;
+    
+    node->prev->next = node->next;
+    node->next->prev = node->prev;
+    free(node);
 }
 
 /* Dealloc the ll. */
