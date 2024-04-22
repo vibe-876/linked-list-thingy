@@ -86,9 +86,14 @@ void llReader(node_t *ll)
     } printf("%c\n", nextNode->data);
 }
 
-/* Ignore this, (forgot to commit after fixing a bug, and
-   continued without thinking lol.
-  void llDealloc(note_t ll)
+
+/* Dealloc the ll. */
+void llDealloc(note_t ll)
 {
     node_t *node = ll;
-    while(node->next != */
+    while(node->next != ll) {
+	node = node->next;
+	free(node->prev);
+    } free(node);
+    free(ll);
+}
