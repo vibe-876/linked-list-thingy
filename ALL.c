@@ -20,21 +20,19 @@ node_t *llInit(char info);
 void llAppend(char info, node_t *ll);
 node_t *llFinal(node_t *ll);
 void llReader(node_t *ll);
-void llDealloc(note_t ll);
+void llBReader(node_t *ll);
+void llFree(node_t *ll);
 
 
 int main(int argc, char *argv[])
 {
     node_t *ll = llInit('c');
-
-    //    printf("%p\n", llFinal(ll));
     llAppend('a', ll);
-    //    printf("%p\n", llFinal(ll));
     llAppend('m', ll);
-    //    printf("%p\n", llFinal(ll));
-    llReader(ll);
+
+    llBReader(ll);
     
-    free(ll);
+    llFree(ll);
     return(0);
 }
 
@@ -61,6 +59,8 @@ void llAppend(char info, node_t *ll)
 
     node->prev = llEnd;
     llEnd->next = node;
+
+    ll->prev = node;
 }
 
 /* So the idea for this guy is to store the address
@@ -86,14 +86,23 @@ void llReader(node_t *ll)
     } printf("%c\n", nextNode->data);
 }
 
+/* Same as llReader, but iterates backwards instead
+   of forwards. */
+void llBReader(node_t *ll)
+{
+    node_t *node = ll->prev;
+    while(node != ll) {
+	printf("%c\n", node->data);
+	node = node->prev;
+    } printf("%c\n", node->data);
+}
 
 /* Dealloc the ll. */
-void llDealloc(note_t ll)
+void llFree(node_t *ll)
 {
     node_t *node = ll;
     while(node->next != ll) {
 	node = node->next;
 	free(node->prev);
     } free(node);
-    free(ll);
 }
