@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     llAppend('a', ll);
     llAppend('m', ll);
-    llReader(ll);
+        llReader(ll);
     
     free(ll);
     return(0);
@@ -75,5 +75,9 @@ node_t *llFinal(node_t *ll)
 /* Prints out a linked list. */
 void llReader(node_t *ll)
 {
-    for(node_t *nextNode = ll; nextNode->next != ll; nextNode = nextNode->next) printf("%c\n", nextNode->data);
+    node_t *nextNode = ll;
+    while(nextNode->next != ll) {
+	printf("%c\n", nextNode->data);
+	nextNode = nextNode->next;
+    } printf("%c\n", nextNode->data);
 }
