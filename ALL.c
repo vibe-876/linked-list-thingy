@@ -20,15 +20,19 @@ node_t *llInit(char info);
 void llAppend(char info, node_t *ll);
 node_t *llFinal(node_t *ll);
 void llReader(node_t *ll);
+void llDealloc(note_t ll);
 
 
 int main(int argc, char *argv[])
 {
     node_t *ll = llInit('c');
 
+    //    printf("%p\n", llFinal(ll));
     llAppend('a', ll);
+    //    printf("%p\n", llFinal(ll));
     llAppend('m', ll);
-        llReader(ll);
+    //    printf("%p\n", llFinal(ll));
+    llReader(ll);
     
     free(ll);
     return(0);
@@ -67,8 +71,8 @@ void llAppend(char info, node_t *ll)
 */
 node_t *llFinal(node_t *ll)
 {
-    node_t *nextNode = ll->next;
-    while(nextNode != ll) nextNode = nextNode->next;
+    node_t *nextNode = ll;
+    while(nextNode->next != ll) nextNode = nextNode->next;
     return(nextNode);
 }
 
@@ -81,3 +85,10 @@ void llReader(node_t *ll)
 	nextNode = nextNode->next;
     } printf("%c\n", nextNode->data);
 }
+
+/* Ignore this, (forgot to commit after fixing a bug, and
+   continued without thinking lol.
+  void llDealloc(note_t ll)
+{
+    node_t *node = ll;
+    while(node->next != */
