@@ -32,9 +32,7 @@ int main(int argc, char *argv[])
     llAppend('m', ll);
 
     llReader(ll);
-    llRem(ll, 2);
-    printf("\n");
-    llReader(ll);
+    llBReader(ll);
     
     llFree(ll);
     return(0);
@@ -85,7 +83,7 @@ void llReader(node_t *ll)
 {
     node_t *nextNode = ll;
     while(nextNode->next != ll) {
-	printf("%c\n", nextNode->data);
+	printf("%c -> ", nextNode->data);
 	nextNode = nextNode->next;
     } printf("%c\n", nextNode->data);
 }
@@ -96,7 +94,7 @@ void llBReader(node_t *ll)
 {
     node_t *node = ll->prev;
     while(node != ll) {
-	printf("%c\n", node->data);
+	printf("%c <- ", node->data);
 	node = node->prev;
     } printf("%c\n", node->data);
 }
